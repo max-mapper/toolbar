@@ -1,0 +1,8 @@
+{
+  "name": "toolbar",
+  "description": "client side module for creating toolbars",
+  "version": "0.0.1",
+  "dependencies": {
+    "inherits": "1.0.0"
+  }
+}
