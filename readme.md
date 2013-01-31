@@ -35,17 +35,17 @@ include some html in your page that looks like this:
 
 step 3:
 
-`
+```javascript
 var toolbar = require('toolbar')
-toolbar('.bar-tab')
-`
+var bartab = toolbar('.bar-tab')
+```
 
 use [browserify](http://browserify.org/) to package toolbar for use in your client side app!
 
 step 4:
 
 ```javascript
-toolbar.on('select', function(item) {
+bartab.on('select', function(item) {
   // item is the .tab-label innerText
 })
 ```
