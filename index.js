@@ -110,6 +110,8 @@ function HUD(opts) {
   if (!(this instanceof HUD)) return new HUD(opts)
   var self = this
   if (!opts) opts = {}
+  if (opts instanceof HTMLElement) opts = {el: opts}
+  this.opts = opts
   this.el = opts.el || 'nav'
   if (typeof this.el !== 'object') this.el = document.querySelector(this.el)
   this.toolbarKeys = opts.toolbarKeys || ['1','2','3','4','5','6','7','8','9','0']
@@ -128,7 +130,7 @@ HUD.prototype.onKeyDown = function() {
 
 HUD.prototype.bindEvents = function() {
   var self = this
-  window.addEventListener('keydown', this.onKeyDown.bind(this))
+  if (!this.opts.noKeydown) window.addEventListener('keydown', this.onKeyDown.bind(this))
   var list = this.el.querySelectorAll('li')
   list = Array.prototype.slice.call(list);
   list.map(function(li) { 
@@ -137,6 +139,7 @@ HUD.prototype.bindEvents = function() {
 }
 
 HUD.prototype.onItemClick = function(ev) {
+  ev.preventDefault()
   var idx = this.toolbarIndexOf(ev.currentTarget)
   if (idx > -1) this.switchToolbar(idx)
 }
