@@ -177,5 +177,6 @@ HUD.prototype.switchToolbar = function(num) {
   this.addClass(selected, 'active')
   var active = this.el.querySelector('.active .tab-label')
   if (!active) return
-  this.emit('select', active.innerText)
+  var dataID = active.getAttribute('data-id')
+  this.emit('select', dataID ? dataID : active.innerText)
 }
