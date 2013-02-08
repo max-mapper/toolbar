@@ -1,6 +1,7 @@
 var keymaster = require('./lib/keymaster.js')
 var inherits = require('inherits')
 var events = require('events')
+var elementClass = require('element-class')
 
 var keyTable =
   {   8 : 'backspace'
@@ -146,21 +147,12 @@ HUD.prototype.onItemClick = function(ev) {
 
 HUD.prototype.addClass = function(el, className) {
   if (!el) return
-  if (el.className === "") return el.className = className
-  var classes = el.className.split(' ')
-  classes.push(className)
-  el.className = classes.join(' ')
-  return classes
+  return elementClass(el).add(className)
 }
 
 HUD.prototype.removeClass = function(el, className) {
   if (!el) return
-  if (el.className === "") return
-  var classes = el.className.split(' ')
-  var idx = classes.indexOf(className)
-  if (idx > -1) classes.splice(idx, 1)
-  el.className = classes.join(' ')
-  return classes
+  return elementClass(el).remove(className)
 }
 
 HUD.prototype.toolbarIndexOf = function(li) {
