@@ -125,7 +125,8 @@ HUD.prototype.onKeyDown = function() {
   var self = this
   keymaster.getPressedKeyCodes().map(function(keyCode) {
     var pressed = keyTable[keyCode]
-    if (self.toolbarKeys.indexOf(pressed) > -1) return self.switchToolbar(pressed)
+    var idx = self.toolbarKeys.indexOf(pressed)
+    if (idx > -1) return self.switchToolbar(idx)
   })
 }
 
@@ -159,13 +160,12 @@ HUD.prototype.toolbarIndexOf = function(li) {
   var list = this.el.querySelectorAll('.tab-item') 
   list = Array.prototype.slice.call(list)
   var idx = list.indexOf(li)
-  if (idx > -1) ++idx
   return idx
 }
 
 HUD.prototype.switchToolbar = function(num) {
   this.removeClass(this.el.querySelector('.active'), 'active')
-  var selected = this.el.querySelectorAll('.tab-item')[+num-1]
+  var selected = this.el.querySelectorAll('.tab-item')[num]
   this.addClass(selected, 'active')
   var active = this.el.querySelector('.active .tab-label')
   if (!active) return
