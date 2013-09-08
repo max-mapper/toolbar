@@ -125,7 +125,8 @@ HUD.prototype.onKeyDown = function() {
   var self = this
   keymaster.getPressedKeyCodes().map(function(keyCode) {
     var pressed = keyTable[keyCode]
-    if (self.toolbarKeys.indexOf(pressed) > -1) return self.switchToolbar(pressed)
+    var idx = self.toolbarKeys.indexOf(pressed)
+    if (idx > -1) return self.switchToolbar(idx+1)
   })
 }
 
