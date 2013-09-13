@@ -50,6 +50,18 @@ bartab.on('select', function(item) {
 })
 ```
 
+## try the demo locally
+
+The demo requires beefy installed globally
+```bash
+npm install -g beefy
+```
+
+Then simply start the demo
+```bash
+npm start
+```
+
 ## bonus advice
 
 to convert svgs from the noun project into cute little transparent pngs:
