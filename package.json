@@ -3,7 +3,7 @@
   "description": "client side module for creating toolbars",
   "author": {"name": "Max Ogden", "email": "max@maxogden.com"},
   "repository": {"type": "git", "url": "git@github.com:maxogden/toolbar.git"},
-  "version": "0.0.5",
+  "version": "0.1.0",
   "dependencies": {
     "inherits": "1.0.0",
     "element-class": "0.0.2"
