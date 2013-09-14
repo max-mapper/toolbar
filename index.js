@@ -115,6 +115,8 @@ function HUD(opts) {
   this.opts = opts
   this.el = opts.el || 'nav'
   if (typeof this.el !== 'object') this.el = document.querySelector(this.el)
+  // setup toolbar if provided only a container
+  if (this.el.getElementsByClassName('tab-inner').length===0) this.createTabInner()
   this.toolbarKeys = opts.toolbarKeys || ['1','2','3','4','5','6','7','8','9','0']
   this.bindEvents()
 }
@@ -171,4 +173,50 @@ HUD.prototype.switchToolbar = function(num) {
   if (!active) return
   var dataID = active.getAttribute('data-id')
   this.emit('select', dataID ? dataID : active.innerText)
+}
+
+HUD.prototype.emptyContent = function() {
+  this.el.removeChild(this.el.getElementsByClassName('tab-inner')[0])
+  this.createTabInner()
+}
+
+HUD.prototype.createTabInner = function() {
+  var tabInner = document.createElement('ul')
+  tabInner.className = 'tab-inner'
+  this.el.appendChild(tabInner)
+}
+
+HUD.prototype.setContent = function(content) {
+  var self = this
+  // remove any previous content
+  this.emptyContent()
+  // add new content
+  return content.map(function(item){
+    return self.addContent(item)
+  }) 
+}
+
+HUD.prototype.addContent = function(item) {
+  var self = this
+  // create new tab
+  var tabItem = document.createElement('li')
+  tabItem.className = 'tab-item'
+  // create the icon, if provided
+  if (item.icon) {
+    var tabIcon = document.createElement('img')
+    tabIcon.className = 'tab-icon'
+    tabIcon.src = item.icon
+    tabItem.appendChild(tabIcon)
+  }
+  // create the label
+  var tabLabel = document.createElement('div')
+  tabLabel.className = 'tab-label'
+  if (item.label) tabLabel.innerText = item.label
+  if (item.id !== undefined) tabLabel.setAttribute('data-id',item.id)
+  tabItem.appendChild(tabLabel)
+  // add item to toolbar
+  this.el.getElementsByClassName('tab-inner')[0].appendChild(tabItem)
+  // bind click event for new item
+  tabItem.addEventListener('click', self.onItemClick.bind(self))
+  return tabItem
 }
