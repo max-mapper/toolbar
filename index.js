@@ -212,7 +212,7 @@ HUD.prototype.addContent = function(item) {
   var tabLabel = document.createElement('div')
   tabLabel.className = 'tab-label'
   if (item.label) tabLabel.innerText = item.label
-  if (item.id) tabLabel.setAttribute('data-id',item.id)
+  if (item.id !== undefined) tabLabel.setAttribute('data-id',item.id)
   tabItem.appendChild(tabLabel)
   // add item to toolbar
   this.el.getElementsByClassName('tab-inner')[0].appendChild(tabItem)
